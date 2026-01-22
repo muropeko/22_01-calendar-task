@@ -1,5 +1,7 @@
+import { CalendarPage } from "./page/CalendarPage";
+
 export const App = () => {
-  return <></>
+  return <CalendarPage />
 };
 
 export default App;

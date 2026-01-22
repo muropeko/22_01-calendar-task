@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.5;
+  font-size: 15px;
+  background-color: #373C4F;
+}

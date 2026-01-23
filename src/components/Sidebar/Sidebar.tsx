@@ -1,7 +1,6 @@
 import { SidebarEventList, SidebarHeader, SidebarTabs } from ".";
 import { Button } from "../ui";
 
-
 export const Sidebar = () => {
     return (
         <div className="w-120 flex flex-col max-h-screen gap-4">

@@ -1,7 +1,11 @@
 import { CalendarPage } from "./page/CalendarPage";
+import { CalendarViewProvider } from "./providers";
 
 export const App = () => {
-  return <CalendarPage />
-};
+  return (
+    <CalendarViewProvider>
+      <CalendarPage />
+    </CalendarViewProvider>
+  )};
 
 export default App;

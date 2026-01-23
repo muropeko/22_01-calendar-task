@@ -1,8 +1,8 @@
-import { useCalendarView } from "../../hooks";
+import { useCalendarContext } from "../../hooks";
 import { TabButton } from "../ui";
 
 export const SidebarTabs = () => {
-    const { setView, view } = useCalendarView();
+    const { setView, view } = useCalendarContext();
 
     return (
         <div className="flex gap-3 justify-center">

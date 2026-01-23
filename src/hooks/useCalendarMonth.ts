@@ -1,39 +1,18 @@
-import { useMemo, useState } from "react";
 import { startOfMonth, endOfMonth, addDays } from "date-fns";
+import { useCalendarContext } from ".";
+import { createCalendarCells } from "../utils";
 
-export const useCalendarMonth = (initialYear: number, initialMonth: number) => {
-    const [year, setYear] = useState(initialYear)
-    const [month, setMonth] = useState(initialMonth)
+export const useCalendarMonth = () => {
+  const { selectedDate, setSelectedDate } = useCalendarContext()
 
-    const days = useMemo(() => {
-        const start = startOfMonth(new Date(year, month, 1))
-        const end = endOfMonth(start)
+  const start = startOfMonth(selectedDate)
+  const end = endOfMonth(start)
 
-        const totalDays = end.getDate()
+  const monthDays = Array.from({ length: end.getDate() }, (_, i) => addDays(start, i))
+  const cells = createCalendarCells(monthDays);
 
-        return Array.from({ length: totalDays }, (_, i) => addDays(start, i))
-    }, [year, month]);
+  const prevMonth = () => setSelectedDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, d.getDate()))
+  const nextMonth = () => setSelectedDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()))
 
-
-    const prevMonth = () => {
-        setMonth(prev => {
-            if (prev === 0) {
-                setYear(y => y - 1);
-                return 11;
-            }
-            return prev - 1;
-        });
-    };
-
-    const nextMonth = () => {
-        setMonth(prev => {
-            if (prev === 11) {
-                setYear(y => y + 1);
-                return 0;
-            }
-            return prev + 1;
-        });
-    };
-
-    return { year, month, days, prevMonth, nextMonth };
+  return { cells, prevMonth, nextMonth };
 };

@@ -1,28 +1,23 @@
 import { CalendarHeader, CalendarMonthView, CalendarWeekView } from ".";
-import { useCalendarView, useCalendarMonth } from "../../hooks";
-import { createCalendarCells } from "../../utils";
+import { useCalendarContext, useCalendarMonth, useCurrentDate } from "../../hooks";
 
 export const Calendar = () => {
-    const { view } = useCalendarView();
-    const { year, month, days, prevMonth, nextMonth } = useCalendarMonth(2026, 0);
-
-    const cell = createCalendarCells(days)
+    const { view, selectedDate, today } = useCalendarContext()
+    const { prevMonth, nextMonth, cells } = useCalendarMonth()
+    const { daysOfWeek } = useCurrentDate()
 
     return (
         <div className="flex-1 bg-white rounded-lg flex flex-col overflow-hidden p-5 min-h-0">
             <CalendarHeader
                 view={view}
-                year={year}
-                month={month}
+                selectedDate={selectedDate}
+                today={today}
+                daysOfWeek={daysOfWeek}
                 onPrev={prevMonth}
                 onNext={nextMonth}
             />
 
-            {view === 'month' ? (
-                <CalendarMonthView data={cell} />
-            ) : (
-                <CalendarWeekView />
-            )}
+            { view === "month" ? <CalendarMonthView data={cells}/> : <CalendarWeekView /> }
         </div>
     );
 };

@@ -1,1 +1,1 @@
-export * from "./CalendarViewProvider"
+export * from "./CalendarProvider"

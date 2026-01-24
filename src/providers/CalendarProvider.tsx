@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import type { CalendarView } from "../types";
-import { CalendarContext } from "./Calendar.context";
+import { CalendarContext } from "./calendar.context";
 
 export const CalendarProvider = ({ children }: { children: ReactNode }) => {
     const today = new Date();

@@ -1,10 +1,13 @@
 import { CalendarPage } from "./page/CalendarPage";
 import { CalendarProvider } from "./providers";
+import { EventProvider } from "./providers/EventProvider";
 
 export const App = () => {
   return (
     <CalendarProvider>
-      <CalendarPage />
+      <EventProvider>
+        <CalendarPage />
+      </EventProvider>
     </CalendarProvider>
   )};
 

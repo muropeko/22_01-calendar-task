@@ -1,9 +1,10 @@
 export type CalendarView = "month" | "week"
 
-export type EventType = "normal" | "holiday"
+export const EVENT_TYPES = ["normal", "holiday"] as const
+export type EventType = (typeof EVENT_TYPES)[number]
 
-export interface Event {
-    id: string
+export interface IEvent {
+    id?: string
     title: string
     start: Date
     end: Date

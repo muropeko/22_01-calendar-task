@@ -18,7 +18,7 @@ export const Sidebar = () => {
         </div>
 
         <div className="flex justify-end mt-auto">
-          <Button size="sm" rounded onClick={open}>+</Button>
+          <Button onClick={open} rounded >+</Button>
         </div>
       </div>
       <AddModalTemplate isOpen={isOpen} onClose={close} />

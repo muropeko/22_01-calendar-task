@@ -1,0 +1,1 @@
+export const toDateTimeLocalString = (date: Date): string => date.toISOString().substring(0, 16)

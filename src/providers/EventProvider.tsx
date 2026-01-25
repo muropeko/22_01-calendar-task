@@ -13,7 +13,10 @@ export const EventProvider = ({ children }: { children: ReactNode }) => {
   }
 
   useEffect(() => {
-    fetchEvents()
+    (async () => {
+      const all = await eventService.getAll();
+      setEvents(all);
+    })();
 
     const onStorageChange = (e: StorageEvent) => {
       if (e.key === "events") fetchEvents()

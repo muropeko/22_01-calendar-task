@@ -1,19 +1,15 @@
-import {
-  CalendarHeader,
-  CalendarMonthView,
-  CalendarWeekView,
-} from ".";
+import { CalendarHeader, CalendarMonthView, CalendarWeekView } from ".";
 import { useCalendarContext, useEventContext } from "../../hooks";
 import { createCalendarCells } from "../../utils";
 import { getDaysOfWeek } from "../../utils/time";
 
 export const Calendar = () => {
   const { view, selectedDate, today, setSelectedDate } = useCalendarContext();
-  const { getByMonth } = useEventContext();
+  const { getByMonth, getByWeek } = useEventContext();
 
-  const cells = createCalendarCells(selectedDate)
-
+  const cells = createCalendarCells(selectedDate);
   const monthEvents = getByMonth(selectedDate);
+  const weekEvents = getByWeek(selectedDate);
 
   const daysOfWeek = view === "week" ? getDaysOfWeek(selectedDate) : [];
 
@@ -31,6 +27,7 @@ export const Calendar = () => {
       ) : (
         <CalendarWeekView
           data={daysOfWeek}
+          events={weekEvents}
           selectedDate={selectedDate}
           today={today}
           setSelectedDate={setSelectedDate}

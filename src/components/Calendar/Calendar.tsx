@@ -8,7 +8,7 @@ import { createCalendarCells } from "../../utils";
 import { getDaysOfWeek } from "../../utils/time";
 
 export const Calendar = () => {
-    const { view, selectedDate, today, setSelectedDate } = useCalendarContext();
+  const { view, selectedDate, today, setSelectedDate } = useCalendarContext();
   const { getByMonth } = useEventContext();
 
   const cells = createCalendarCells(selectedDate)
@@ -17,29 +17,25 @@ export const Calendar = () => {
 
   const daysOfWeek = view === "week" ? getDaysOfWeek(selectedDate) : [];
 
-    return (
-        <div className="flex-1 bg-white rounded-lg flex flex-col overflow-hidden p-5 min-h-0">
-            <CalendarHeader
-                view={view}
-                selectedDate={selectedDate}
-                today={today}
-                daysOfWeek={daysOfWeek}
-                onPrev={prevMonth}
-                onNext={nextMonth}
-            />
+  return (
+    <div className="flex-1 bg-white rounded-lg flex flex-col overflow-hidden p-5 min-h-0">
+      <CalendarHeader
+        view={view}
+        selectedDate={selectedDate}
+        today={today}
+        daysOfWeek={daysOfWeek}
+      />
 
-            {view === "month" ? (
-                <CalendarMonthView 
-                    data={cells} 
-                />
-            ) : (
-                <CalendarWeekView
-                    data={daysOfWeek}
-                    selectedDate={selectedDate}
-                    today={today}
-                    setSelectedDate={setSelectedDate}
-                />
-            )}
-        </div>
-    );
+      {view === "month" ? (
+        <CalendarMonthView data={cells} events={monthEvents} />
+      ) : (
+        <CalendarWeekView
+          data={daysOfWeek}
+          selectedDate={selectedDate}
+          today={today}
+          setSelectedDate={setSelectedDate}
+        />
+      )}
+    </div>
+  );
 };

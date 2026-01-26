@@ -2,7 +2,7 @@ import { type ReactNode, useState, useEffect } from "react";
 import { EventContext } from "./event.context";
 import { eventService } from "../services/eventService";
 import type { IEvent } from "../types";
-import { isSameDay, isWithinInterval, startOfMonth, endOfMonth, startOfWeek, endOfWeek } from "date-fns";
+import { isWithinInterval, startOfMonth, endOfMonth, startOfWeek, endOfWeek, endOfDay, startOfDay, areIntervalsOverlapping } from "date-fns";
 
 export const EventProvider = ({ children }: { children: ReactNode }) => {
   const [events, setEvents] = useState<IEvent[]>([])
@@ -49,20 +49,33 @@ export const EventProvider = ({ children }: { children: ReactNode }) => {
     await fetchEvents()
   }
 
-  const getByDay = (date: Date): IEvent[] => events.filter(e => isSameDay(e.start, date))
+  const getByDay = (date: Date): IEvent[] =>
+    events.filter(e =>
+      isWithinInterval(date, { start: startOfDay(e.start), end: endOfDay(e.end) })
+    )
 
   const getByWeek = (date: Date): IEvent[] => {
-    const start = startOfWeek(date, { weekStartsOn: 0 });
-    const end = endOfWeek(date, { weekStartsOn: 0 });
+    const weekStart = startOfWeek(date, { weekStartsOn: 0 })
+    const weekEnd = endOfWeek(date, { weekStartsOn: 0 })
 
-    return events.filter(e => isWithinInterval(e.start, { start, end }))
-  };
+    return events.filter(e =>
+      areIntervalsOverlapping(
+        { start: e.start, end: e.end },
+        { start: weekStart, end: weekEnd }
+      )
+    )
+  }
 
   const getByMonth = (date: Date): IEvent[] => {
     const monthStart = startOfMonth(date)
     const monthEnd = endOfMonth(date)
 
-    return events.filter(e => isWithinInterval(e.start, { start: monthStart, end: monthEnd }))
+    return events.filter(e =>
+      areIntervalsOverlapping(
+        { start: e.start, end: e.end },
+        { start: monthStart, end: monthEnd }
+      )
+    )
   }
 
   return (

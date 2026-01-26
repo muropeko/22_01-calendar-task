@@ -6,8 +6,8 @@ import { EventItem } from "./EventItem";
 
 export const SidebarEventList = () => {
   const { selectedDate } = useCalendarContext()
+  
   const { getByDay } = useEventContext()
-
   const dayEvents = getByDay(selectedDate)
 
   const [activeEvent, setActiveEvent] = useState<IEvent | null>(null)

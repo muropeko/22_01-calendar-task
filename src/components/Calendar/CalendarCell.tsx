@@ -1,25 +1,24 @@
 import { isSameDay } from "date-fns";
 import { cn } from "../../utils";
-import { useCalendarContext } from "../../hooks";
-import type { IEvent } from "../../types";
+import { useCalendarContext, useEventContext } from "../../hooks";
 
 interface Props {
   date: Date | null;
-  events?: IEvent[]
 }
 
-export const CalendarCell = ({ date, events = [] }: Props) => {
+export const CalendarCell = ({ date }: Props) => {
   const { selectedDate, setSelectedDate, today } = useCalendarContext();
+  const { getByDay } = useEventContext();
 
   const isCurrentMonth = !!date;
   const isToday = !!date && isSameDay(date, today);
   const isSelected = !!date && isSameDay(date, selectedDate);
 
+  const cellEvents = date ? getByDay(date) : []
+
   const handleClick = () => {
     if (date) setSelectedDate(date);
   };
-
-  const cellEvents = date ? events.filter((e) => isSameDay(e.start, date)) : [];
 
   return (
     <div
@@ -38,7 +37,7 @@ export const CalendarCell = ({ date, events = [] }: Props) => {
           {cellEvents.map((e) => (
             <span
               key={e.id}
-              className="text-[10px] bg-purple-200 text-purple-800 rounded px-1 py-[1px] truncate"
+              className="text-[10px] bg-purple-200 text-purple-800 rounded px-1 py-[px] truncate"
               title={e.title}
             >
               {e.title}

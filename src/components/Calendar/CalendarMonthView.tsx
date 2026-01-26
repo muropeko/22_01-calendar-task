@@ -1,13 +1,11 @@
-import type { IEvent } from "../../types";
 import { CalendarCell } from "./CalendarCell";
 import { CalendarWeekdays } from "./CalendarWeekdays";
 
 interface Props {
   data: (Date | null)[];
-  events: IEvent[];
 }
 
-export const CalendarMonthView = ({ data, events }: Props) => {
+export const CalendarMonthView = ({ data }: Props) => {
   return (
     <>
       <CalendarWeekdays />
@@ -16,7 +14,6 @@ export const CalendarMonthView = ({ data, events }: Props) => {
           <CalendarCell
             key={cellDate?.toISOString()}
             date={cellDate}
-            events={events}
           />
         ))}
       </div>

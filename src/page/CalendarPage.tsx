@@ -8,7 +8,7 @@ export const CalendarPage = () => {
         <Calendar />
       </div>
 
-      <div className="flex flex-col min-w-122.5">
+      <div className="flex flex-col min-w-90">
         <Sidebar />
       </div>
 

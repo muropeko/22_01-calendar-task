@@ -24,9 +24,9 @@ export const SidebarEventList = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto flex flex-col gap-3 px-3">
+    <div className="flex-1 flex flex-col gap-3 min-h-0">
       {dayEvents.length > 0 ? (
-        dayEvents.map(event => (
+        dayEvents.map((event) => (
           <EventItem
             key={event.id}
             event={event}
@@ -35,25 +35,15 @@ export const SidebarEventList = () => {
           />
         ))
       ) : (
-        <h1 className="mt-10 text-center text-2xl text-gray-500">
-          Nothing
-        </h1>
+        <h1 className="my-10 text-center text-2xl text-gray-500">Nothing</h1>
       )}
 
       {modalType === "edit" && activeEvent && (
-        <EditModalTemplate
-          isOpen
-          onClose={closeModal}
-          event={activeEvent}
-        />
+        <EditModalTemplate isOpen onClose={closeModal} event={activeEvent} />
       )}
 
       {modalType === "delete" && activeEvent && (
-        <DeleteModalTemplate
-          isOpen
-          onClose={closeModal}
-          event={activeEvent}
-        />
+        <DeleteModalTemplate isOpen onClose={closeModal} event={activeEvent} />
       )}
     </div>
   );

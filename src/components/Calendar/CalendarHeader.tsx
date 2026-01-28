@@ -18,21 +18,37 @@ export const CalendarHeader = ({ view, selectedDate, today, daysOfWeek}: Props) 
 
   return (
     <div className="flex flex-col items-center gap-2 pb-5">
-      {!isSameDay(selectedDate, today) && (
+      {isSameDay(selectedDate, today) && (
         <button className="px-4 py-1 rounded bg-[#B489DE] text-white text-sm">Today</button>
       )}
 
-      <div className="flex items-center justify-center w-80 max-w-150">
-        <button onClick={onPrev} className="text-[#B489DE] text-2xl px-4 cursor-pointer">‹</button>
+      <div className="flex items-center justify-center w-full gap-2 sm:gap-4 flex-wrap">
+        <button
+          onClick={onPrev}
+          className="text-[#B489DE] text-xl sm:text-2xl px-2 sm:px-4 cursor-pointer"
+        >
+          ‹
+        </button>
 
-        <h1 className="text-2xl font-semibold text-gray-700 text-center flex-1">
-          { view === "month"
-            ? formatDate(selectedDate, "MMMM yyyy")
-            : `Week of ${formatDate(daysOfWeek[0])} – ${formatDate(daysOfWeek[daysOfWeek.length - 1])}`
-          }
-        </h1>
+        <div className="flex-1 text-center break-words">
+          {view === "month" ? (
+            <div className="text-2xl font-semibold text-gray-700">
+              {formatDate(selectedDate, "MMMM yyyy")}
+            </div>
+          ) : (
+            <div className="text-2xl font-semibold text-gray-700">
+              Week of {formatDate(daysOfWeek[0])} – {formatDate(daysOfWeek[daysOfWeek.length - 1])}
+            </div>
 
-        <button onClick={onNext} className="text-[#B489DE] text-2xl px-4 cursor-pointer">›</button>
+          )}
+        </div>
+
+        <button
+          onClick={onNext}
+          className="text-[#B489DE] text-xl sm:text-2xl px-2 sm:px-4 cursor-pointer"
+        >
+          ›
+        </button>
       </div>
     </div>
   );

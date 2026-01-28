@@ -10,7 +10,7 @@ export const Calendar = () => {
   const daysOfWeek = view === "week" ? getDaysOfWeek(selectedDate) : []
 
   return (
-    <div className="flex-1 bg-white rounded-lg flex flex-col overflow-hidden p-5 min-h-0">
+    <div className="flex-1 flex flex-col bg-white rounded-lg p-6 md:min-h-0">
       <CalendarHeader
         view={view}
         selectedDate={selectedDate}

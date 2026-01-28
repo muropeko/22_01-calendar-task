@@ -17,22 +17,23 @@ export const CalendarWeekView = ({ data, selectedDate, today, setSelectedDate }:
   const weekEvents = getByWeek(selectedDate)
 
   return (
-    <div className="overflow-auto">
+    <div className="overflow-auto min-h-0">
       <div className="grid grid-cols-8 border-t border-l border-gray-300">
         <div className="border-b border-r border-gray-300 h-10" />
 
         {data.map((day) => (
           <div
             key={day.toISOString()}
-            className="h-10 flex items-center justify-center bg-[#B489DE] text-white text-sm font-medium"
+            className="flex flex-col md:flex-row items-center justify-center bg-[#B489DE] text-white text-xs md:text-sm font-medium px-1 h-10 min-w-[40px] md:min-w-[60px]"
           >
-            {format(day, "EEE dd")}
+            <span className="leading-none pr-1">{format(day, "EEE")}, </span>
+            <span className="leading-none">{format(day, "dd")}</span>
           </div>
         ))}
 
         {HOURS.map((hour) => (
           <React.Fragment key={hour}>
-            <div className="border-b border-r border-gray-300 h-12 px-2 text-xs text-gray-500 flex justify-center items-center">
+            <div className="border-b border-r border-gray-300 h-8 md:h-10 px-2 text-xs text-gray-500 flex justify-center items-center min-w-[20px] md:min-w-[60px]">
               {formatHour(hour)}
             </div>
 
@@ -45,10 +46,7 @@ export const CalendarWeekView = ({ data, selectedDate, today, setSelectedDate }:
               );
 
               const cellEvents = weekEvents.filter((e) =>
-                isWithinInterval(cellTime, {
-                  start: e.start,
-                  end: e.end,
-                })
+                isWithinInterval(cellTime, { start: e.start, end: e.end })
               );
 
               const isToday = isSameDay(day, today);
@@ -59,7 +57,7 @@ export const CalendarWeekView = ({ data, selectedDate, today, setSelectedDate }:
                   key={day.toISOString() + hour}
                   onClick={() => setSelectedDate(day)}
                   className={cn(
-                    "border-b border-r border-gray-300 h-12 p-1 cursor-pointer relative",
+                    "border-b border-r border-gray-300 h-8 md:h-10 p-1 cursor-pointer relative min-w-10 md:min-w-15",
                     isToday && "border-2 border-purple-500",
                     isSelected && "bg-purple-100"
                   )}
@@ -67,7 +65,7 @@ export const CalendarWeekView = ({ data, selectedDate, today, setSelectedDate }:
                   {cellEvents.map((e) => (
                     <span
                       key={e.id}
-                      className="absolute top-1 left-1 text-[10px] bg-purple-200 text-purple-800 rounded px-1 py-px truncate"
+                      className="absolute top-1 left-1 text-[10px] bg-purple-200 text-purple-800 rounded px-1 py-px wrap-break-word"
                     >
                       {e.title}
                     </span>

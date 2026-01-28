@@ -7,10 +7,10 @@ export const Sidebar = () => {
   const { isOpen, open, close } = useModal();
 
   return (
-    <div className="w-120 flex flex-col max-h-screen gap-4">
+    <div className="flex flex-col max-h-screen gap-5 h-full">
       <SidebarTabs />
 
-      <div className="flex flex-col flex-1 min-h-0">
+      <div className="flex flex-col flex-1 min-h-0 pb-5 lg:p-0">
         <SidebarHeader />
 
         <div className="flex-1 min-h-0 overflow-y-auto">
@@ -21,7 +21,9 @@ export const Sidebar = () => {
           <Button onClick={open} rounded >+</Button>
         </div>
       </div>
+
       <AddModalTemplate isOpen={isOpen} onClose={close} />
     </div>
   );
 };
+

@@ -24,7 +24,7 @@ export const CalendarCell = ({ date }: Props) => {
     <div
       onClick={handleClick}
       className={cn(
-        "h-20 border-b border-r border-gray-300 p-1 flex flex-col cursor-pointer",
+        "border-b border-r border-gray-300 p-1 flex flex-col cursor-pointer min-h-[5rem]",
         isCurrentMonth ? "bg-white text-gray-800" : "bg-gray-100 text-gray-400",
         isToday && "border-2 border-purple-500",
         isSelected && "bg-purple-100"
@@ -37,7 +37,7 @@ export const CalendarCell = ({ date }: Props) => {
           {cellEvents.map((e) => (
             <span
               key={e.id}
-              className="text-[10px] bg-purple-200 text-purple-800 rounded px-1 py-[px] truncate"
+              className="text-[10px] bg-purple-200 text-purple-800 rounded px-1 py-px break-words"
               title={e.title}
             >
               {e.title}
